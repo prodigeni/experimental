@@ -1875,7 +1875,7 @@ move() {
     
     touch ${mnt}/chroot.eg &>/dev/null
     
-    chroot ${mnt} sh ${eg}
+    chroot ${mnt} $(which env) -i TERM=$TERM sh ${eg}
 }
 
 create_swap_file() {
@@ -1909,8 +1909,6 @@ shut() {
 }
 
 inside() {
-    $(which env) -i TERM=$TERM /bin/bash
-    
     [[ -e stop.eg ]] && rm -rf stop.eg
     [[ ! -e "${compiled}" ]] && touch ${compiled}
     on_off &

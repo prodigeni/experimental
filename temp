@@ -1837,7 +1837,7 @@ open_tar() {
     done
     
     read t < tball.eg
-    tar --numeric-owner xjpf ${t} -C ${mnt} && touch tball.done
+    tar --numeric-owner -xjpf ${t} -C ${mnt} && touch tball.done
     
     until [ -e "sshot.eg" ]
     do
@@ -1845,7 +1845,7 @@ open_tar() {
     done
     
     read p < sshot.eg
-    mkdir -p ${mnt}/usr/portage && tar --numeric-owner xjf ${p} -C ${mnt}/usr && touch sshot.done
+    mkdir -p ${mnt}/usr/portage && tar --numeric-owner -xjf ${p} -C ${mnt}/usr && touch sshot.done
 
     touch move.eg
 }

@@ -1943,10 +1943,14 @@ inside() {
     esac
     
     echo; eb2 "* "; eg2 "Creating"; er " make.conf..."; sleep 0.5s
-
+    
+    cfline="$(gcc -march=native -E -v - </dev/null 2>&1 | grep cc1 | sed 's:.*\(\-march.*\):\1:')"
+    
+    a2v "cfline=\"${cfline}\""
+    
     fl "/etc/portage/make.conf" "0" "d"
 
-    cf "CFLAGS=\"-march=native -O2 -pipe\""
+    cf "CFLAGS=\"-O2 -pipe ${cfline}\""
     cf 'CXXFLAGS="${CFLAGS}"'
         case ${arch} in
         i686)
@@ -2040,7 +2044,7 @@ inside() {
 
     fl "/etc/portage/make.conf" "0" "d"
 
-    cf "CFLAGS=\"-march=native -O2 -pipe\""
+    cf "CFLAGS=\"-O2 -pipe ${cfline}\""
     cf 'CXXFLAGS="${CFLAGS}"'
         case ${arch} in
         i686)
